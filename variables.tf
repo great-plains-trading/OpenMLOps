@@ -4,12 +4,12 @@ variable "hostname" {
 }
 
 variable "protocol" {
-  default = "http"
+  default     = "http"
   description = "Preferred connection protocol. If using https, a valid ACM certificate must be provided under tls_certificate_arn. See documentation"
 }
 
 variable "install_locally" {
-  default = false
+  default     = false
   description = "Whether to install on a local minikube"
 }
 
@@ -36,141 +36,24 @@ variable "mlflow_artifact_root" {
 
 variable "mlflow_docker_private_repo" {
   description = "Whether the MLFlow's image comes from a private repository or not. If true, mlflow_docker_registry_server and mlflow_docker_auth_key will be required"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 variable "mlflow_docker_registry_server" {
   description = "Docker Registry Server where the MLFlow image should be found"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 variable "mlflow_docker_auth_key" {
   description = "Base64 encoded auth key for the registry server"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "mlflow_service_type" {
   description = "Whether to expose the service publicly or internally"
-  type = string
-  default = "LoadBalancer"
-}
-## Prefect Server
-
-variable "prefect_namespace" {
-  default = "prefect"
-}
-
-variable "prefect_service_type" {
-  description = "Whether to expose the service publicly or internally"
-  type = string
-  default = "LoadBalancer"
-}
-
-variable "prefect_agent_labels" {
-  description = "Defines what scheduling labels (not K8s labels) should be associated with the agent"
-  default     = ["dev"]
-}
-
-variable "prefect_service_account_name" {
-  description = "Prefect service account name"
-  default = "prefect-server-serviceaccount"
-}
-
-variable "prefect_create_tenant_enabled" {
-  description = "determines if the Prefect tenant is created automatically"
-  default     = true
-}
-
-## Jupyter Hub
-
-variable "jupyter_dummy_password" {
-  default = ""
-}
-
-variable "install_jupyterhub" {
-  default = true
-}
-
-variable "jupyterhub_namespace" {
-  default = "jhub"
-}
-
-variable "jhub_proxy_https_enabled" {
-  default = false
-}
-
-variable "jhub_proxy_https_hosts" {
-  default = [""]
-}
-
-variable "jhub_proxy_secret_token" {
-  default = ""
-}
-
-variable "jhub_proxy_https_letsencrypt_contact_email" {
-  default = ""
-}
-
-variable "jhub_proxy_service_type" {
-  description = "Whether to expose the service publicly or internally"
-  type = string
-  default = "LoadBalancer"
-}
-
-variable "oauth_github_enable" {
-  description = "Defines whether the authentication will be handled by github oauth"
-  default     = false
-}
-
-variable "oauth_github_client_id" {
-  description = "github client id used on GitHubOAuthenticator"
-  default     = ""
-}
-variable "oauth_github_client_secret" {
-  description = "github secret used to authenticate with github"
-  default     = ""
-}
-
-variable "oauth_github_admin_users" {
-  description = "Github user names to allow as administrator"
-  default     = []
-}
-
-variable "oauth_github_callback_url" {
-  description = "The URL that people are redirected to after they authorize your GitHub App to act on their behalf"
-  default     = ""
-}
-
-variable "oauth_github_allowed_organizations" {
-  description = "List of Github organization to restrict access to the members"
-  default     = [""]
-}
-
-
-locals {
-  jhub_auth_config = {
-    dummy = {
-      password = var.jupyter_dummy_password
-    }
-    github = {
-      clientId     = var.oauth_github_client_id
-      clientSecret = var.oauth_github_client_secret
-      callbackUrl  = var.oauth_github_callback_url
-      orgWhiteList = var.oauth_github_allowed_organizations
-    }
-    scope = ["read:user"]
-    admin = {
-      users = var.oauth_github_admin_users
-    }
-  }
-}
-
-
-## Dask
-
-variable "dask_namespace" {
-  default = "dask"
+  type        = string
+  default     = "LoadBalancer"
 }
 
 ## Feast
@@ -216,7 +99,7 @@ variable "aws" {
 
 variable "tls_certificate_arn" {
   description = "TLS Certificate ARN"
-  default = ""
+  default     = ""
 }
 ## ORY (authentication module)
 
@@ -227,13 +110,13 @@ variable "ory_namespace" {
   default = "ory"
 }
 
-variable "ory_kratos_db_password"{
+variable "ory_kratos_db_password" {
   description = "PostgreSQL Database Password"
 }
 
 variable "ory_kratos_cookie_secret" {
   description = "Session Cookie Generation secret"
-  sensitive = true
+  sensitive   = true
 }
 
 variable "oauth2_providers" {
@@ -248,36 +131,36 @@ variable "oauth2_providers" {
   //  If you're using GitHub, Google or Facebook, tenant won't be needed, so please set
   //  it as null or an empty string. It is required for AzureAd
   type = list(object({
-    provider = string
-    client_id = string
+    provider      = string
+    client_id     = string
     client_secret = string
-    tenant = string
+    tenant        = string
   }))
   description = "OAuth2 Providers credentials"
 }
 
 variable "smtp_connection_uri" {
   description = "SMTP Connection for Ory"
-  type = string
-  default = "smtp://"
+  type        = string
+  default     = "smtp://"
 }
 
 variable "smtp_from_address" {
   description = "Email address for outgoing mails from Ory"
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }
 
 variable "enable_password_recovery" {
   description = "Bool to set to enable password recovery using emails"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 variable "enable_verification" {
   description = "Bool to set to enable account registration confirmation using emails"
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }
 
 ## Other K8S tools
@@ -288,11 +171,11 @@ variable "install_metrics_server" {
 
 variable "enable_registration_page" {
   description = "Bool to set if registration page will or not be visible to users"
-  type = bool
-  default = true
+  type        = bool
+  default     = true
 }
 
 variable "access_rules_path" {
-  type = string
+  type    = string
   default = null
 }
