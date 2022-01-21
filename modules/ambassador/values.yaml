@@ -56,15 +56,6 @@ service:
       ---
       apiVersion: getambassador.io/v2
       kind: Mapping
-      name: jhub_mapping
-      service: proxy-public.daskhub:80
-      prefix: /
-      host: jupyter.${hostname}
-      allow_upgrade:
-        - websocket
-      ---
-      apiVersion: getambassador.io/v2
-      kind: Mapping
       name: prefect_apollo_mapping
       service: prefect-server-apollo.prefect:4200
       prefix: /graphql
@@ -77,19 +68,3 @@ service:
       service: prefect-server-ui.prefect:8080
       prefix: /
       host: prefect.${hostname}
-    %{ if aws }
-      %{ if tls }
-    "service.beta.kubernetes.io/aws-load-balancer-ssl-cert": ${tls_certificate_arn}
-    "service.beta.kubernetes.io/aws-load-balancer-ssl-ports": "443"
-      %{ endif }
-    "service.beta.kubernetes.io/aws-load-balancer-backend-protocol": "tcp"
-    "service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled": "true"
-    "service.beta.kubernetes.io/aws-load-balancer-proxy-protocol": "*"
-    %{ endif }
-  %{ if aws }
-  externalTrafficPolicy: Local
-  ports:
-    - name: ambassador
-      port: 443
-      targetPort: 8080
-  %{ endif }
