@@ -24,12 +24,6 @@ module "mlflow" {
 
 
 
-resource "kubernetes_namespace" "feast_namespace" {
-  count = var.install_feast ? 1 : 0
-  metadata {
-    name = var.feast_namespace
-  }
-}
 
 module "feast" {
   count = var.install_feast ? 1 : 0
@@ -47,25 +41,15 @@ module "feast" {
 }
 
 
-resource "kubernetes_namespace" "seldon_namespace" {
-  count = var.install_seldon ? 1 : 0
-  metadata {
-    name = var.seldon_namespace
-  }
+
 }
 
 module "seldon" {
   count     = var.install_seldon ? 1 : 0
   source    = "./modules/seldon"
-  namespace = kubernetes_namespace.seldon_namespace[0].metadata[0].name
+  namespace = var.seldon_namespace
 }
 
-resource "kubernetes_namespace" "ambassador_namespace" {
-  count = var.ambassador_enabled ? 1 : 0
-  metadata {
-    name = var.ambassador_namespace
-  }
-}
 
 module "ambassador" {
   count     = var.ambassador_enabled ? 1 : 0
@@ -81,17 +65,11 @@ module "ambassador" {
 }
 
 
-resource "kubernetes_namespace" "ory_namespace" {
-  count = var.enable_ory_authentication ? 1 : 0
-  metadata {
-    name = var.ory_namespace
-  }
-}
 
 module "ory" {
   count              = var.enable_ory_authentication ? 1 : 0
   source             = "./modules/ory"
-  namespace          = kubernetes_namespace.ory_namespace[0].metadata[0].name
+  namespace          = var.ory_namespace
   cookie_secret      = var.ory_kratos_cookie_secret
   kratos_db_password = var.ory_kratos_db_password
   oauth2_providers   = var.oauth2_providers
