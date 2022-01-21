@@ -80,8 +80,3 @@ module "ory" {
 
   access_rules_path = var.access_rules_path
 }
-
-module "k8s_tools" {
-  source                 = "./modules/k8s_tools"
-  install_metrics_server = var.install_metrics_server
-}
