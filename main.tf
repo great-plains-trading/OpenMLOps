@@ -1,6 +1,6 @@
 module "postgres" {
   source    = "./modules/postgres"
-  namespace = var.postgres_namespace
+  namespace = var.mlwflow_namespace
 
   db_username   = var.db_username
   db_password   = var.db_password

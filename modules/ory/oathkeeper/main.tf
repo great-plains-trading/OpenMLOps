@@ -57,7 +57,7 @@ resource "kubernetes_secret" "ory-authkeeper-issuer-secret" {
     namespace = var.namespace
   }
   data = {
-    "id_token.jwks.json" = file("${path.module}/../../../secrets/jwks.json")
+    "id_token.jwks.json" = file("jwks.json")
   }
 }
 resource "kubernetes_deployment" "ory-oathkeeper" {
