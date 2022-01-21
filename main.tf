@@ -40,10 +40,6 @@ module "feast" {
   feast_spark_operator_cluster_role_name = var.feast_spark_operator_cluster_role_name
 }
 
-
-
-}
-
 module "seldon" {
   count     = var.install_seldon ? 1 : 0
   source    = "./modules/seldon"
