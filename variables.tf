@@ -13,6 +13,68 @@ variable "install_locally" {
   description = "Whether to install on a local minikube"
 }
 
+## Daskhub
+
+variable "jupyter_dummy_password" {
+  default = ""
+}
+
+variable "install_jupyterhub" {
+  default = true
+}
+
+variable "daskhub_namespace" {
+  default = "jhub"
+}
+
+variable "oauth_github_enable" {
+  description = "Defines whether the authentication will be handled by github oauth"
+  default     = false
+}
+
+variable "oauth_github_client_id" {
+  description = "github client id used on GitHubOAuthenticator"
+  default     = ""
+}
+variable "oauth_github_client_secret" {
+  description = "github secret used to authenticate with github"
+  default     = ""
+}
+
+variable "oauth_github_admin_users" {
+  description = "Github user names to allow as administrator"
+  default     = []
+}
+
+variable "oauth_github_callback_url" {
+  description = "The URL that people are redirected to after they authorize your GitHub App to act on their behalf"
+  default     = ""
+}
+
+variable "oauth_github_allowed_organizations" {
+  description = "List of Github organization to restrict access to the members"
+  default     = [""]
+}
+
+
+locals {
+  jhub_auth_config = {
+    dummy = {
+      password = var.jupyter_dummy_password
+    }
+    github = {
+      clientId     = var.oauth_github_client_id
+      clientSecret = var.oauth_github_client_secret
+      callbackUrl  = var.oauth_github_callback_url
+      orgWhiteList = var.oauth_github_allowed_organizations
+    }
+    scope = ["read:user"]
+    admin = {
+      users = var.oauth_github_admin_users
+    }
+  }
+}
+
 ## MLFlow
 
 variable "mlflow_namespace" {

@@ -1,3 +1,63 @@
+module "dask-jupyterhub" {
+    source    = "./modules/dask-jupyterhub"
+    namespace = var.daskhub_namespace
+}
+
+resource "kubernetes_service_account" "daskhub-sa" {
+  metadata {
+    name      = "daskhub-sa"
+    namespace = var.daskhub_namespace
+  }
+}
+
+resource "kubernetes_role" "daskhub-role" {
+  metadata {
+    name = "daskhub-role"
+    namespace = var.daskhub_namespace
+  }
+
+  rule {
+    api_groups     = [""]
+    resources      = ["pods"]
+    verbs          = ["get", "list", "watch", "create", "delete"]
+  }
+
+  rule {
+    api_groups     = [""]
+    resources      = ["pods/logs"]
+    verbs          = ["get", "list"]
+  }
+
+  rule {
+    api_groups     = [""]
+    resources      = ["services"]
+    verbs          = ["get", "list", "watch", "create", "delete"]
+  }
+
+  rule {
+    api_groups     = ["policy"]
+    resources      = ["poddisruptionbudgets"]
+    verbs          = ["get", "list", "watch", "create", "delete"]
+  }
+}
+
+resource "kubernetes_role_binding" "daskhub-rb" {
+  metadata {
+    name = "daskhub-rb"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = "daskhub-role"
+  }
+
+  subject {
+    kind = "ServiceAccount"
+    name = "daskhub-sa"
+  }
+}
+
 module "postgres" {
   source    = "./modules/postgres"
   namespace = var.mlflow_namespace
