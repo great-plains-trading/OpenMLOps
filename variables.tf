@@ -146,41 +146,6 @@ variable "seldon_namespace" {
   default = "seldon"
 }
 
-## Ambassador
-variable "ambassador_namespace" {
-  default = "ambassador"
-}
-
-variable "ambassador_enabled" {
-  default = true
-}
-
-variable "aws" {
-  description = "If the deployment is being made in an AWS Cluster"
-}
-
-variable "tls_certificate_arn" {
-  description = "TLS Certificate ARN"
-  default     = ""
-}
-## ORY (authentication module)
-
-variable "enable_ory_authentication" {
-  default = true
-}
-variable "ory_namespace" {
-  default = "ory"
-}
-
-variable "ory_kratos_db_password" {
-  description = "PostgreSQL Database Password"
-}
-
-variable "ory_kratos_cookie_secret" {
-  description = "Session Cookie Generation secret"
-  sensitive   = true
-}
-
 variable "oauth2_providers" {
   //  Configure multiple Oauth2 providers.
   //  example:
