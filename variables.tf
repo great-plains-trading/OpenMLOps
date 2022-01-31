@@ -1,35 +1,7 @@
-## General variables
-variable "hostname" {
-  description = "Hostname of the deployed cluster. Ex.: my-mlops.com"
-}
-
-variable "protocol" {
-  default     = "http"
-  description = "Preferred connection protocol. If using https, a valid ACM certificate must be provided under tls_certificate_arn. See documentation"
-}
-
-variable "install_locally" {
-  default     = false
-  description = "Whether to install on a local minikube"
-}
-
 ## Daskhub
 
 variable "jupyter_dummy_password" {
-  default = ""
-}
-
-variable "install_jupyterhub" {
-  default = true
-}
-
-variable "daskhub_namespace" {
-  default = "jhub"
-}
-
-variable "oauth_github_enable" {
-  description = "Defines whether the authentication will be handled by github oauth"
-  default     = false
+  type = string
 }
 
 variable "oauth_github_client_id" {
@@ -48,7 +20,6 @@ variable "oauth_github_admin_users" {
 
 variable "oauth_github_callback_url" {
   description = "The URL that people are redirected to after they authorize your GitHub App to act on their behalf"
-
 }
 
 variable "oauth_github_allowed_organization" {
