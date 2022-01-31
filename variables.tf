@@ -41,7 +41,7 @@ locals {
       clientId     = var.oauth_github_client_id
       clientSecret = var.oauth_github_client_secret
       callbackUrl  = var.oauth_github_callback_url
-      orgWhiteList = var.oauth_github_allowed_organizations
+      orgWhiteList = var.oauth_github_allowed_organization
     }
     scope = ["read:user"]
     admin = {
