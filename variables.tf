@@ -4,6 +4,10 @@ variable "jupyter_dummy_password" {
   type = string
 }
 
+variable "daskhub_namespace" {
+type = string
+}
+
 variable "oauth_github_client_id" {
   description = "github client id used on GitHubOAuthenticator"
   default     = ""
@@ -20,6 +24,7 @@ variable "oauth_github_admin_users" {
 
 variable "oauth_github_callback_url" {
   description = "The URL that people are redirected to after they authorize your GitHub App to act on their behalf"
+
 }
 
 variable "oauth_github_allowed_organization" {
