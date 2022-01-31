@@ -8,6 +8,10 @@ variable "daskhub_namespace" {
 type = string
 }
 
+variable "admin_user" {
+  type = string
+  default = "admin"
+}
 variable "oauth_github_client_id" {
   description = "github client id used on GitHubOAuthenticator"
   default     = ""
