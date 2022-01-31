@@ -4,7 +4,7 @@ module "dask-jupyterhub" {
 
   admin_user           = var.admin_user
   github_client_id     = var.oauth_github_client_id
-  github_client_secret = var.github_client_secret
+  github_client_secret = var.oauth_github_client_secret
   github_callback_url  = var.oauth_github_callback_url
   github_organization  = var.oauth_github_allowed_organization
 }
