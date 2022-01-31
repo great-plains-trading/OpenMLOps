@@ -69,3 +69,23 @@ variable "hub_allow_named_servers" {
   description = "Configures if a user can spawn multiple servers"
   default     = false
 }
+
+variable "admin_user" {
+  type = string
+}
+
+variable "github_client_id" {
+  type = string
+}
+
+variable "github_client_secret" {
+  type = string
+}
+
+variable "github_callback_url" {
+  type = string
+}
+
+variable "github_organization" {
+  type = string
+}

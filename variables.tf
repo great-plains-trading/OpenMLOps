@@ -48,12 +48,11 @@ variable "oauth_github_admin_users" {
 
 variable "oauth_github_callback_url" {
   description = "The URL that people are redirected to after they authorize your GitHub App to act on their behalf"
-  default     = ""
+
 }
 
-variable "oauth_github_allowed_organizations" {
+variable "oauth_github_allowed_organization" {
   description = "List of Github organization to restrict access to the members"
-  default     = [""]
 }
 
 
@@ -119,7 +118,6 @@ variable "mlflow_service_type" {
 }
 
 ## Feast
-
 variable "install_feast" {
   default = false
 }
@@ -144,65 +142,4 @@ variable "install_seldon" {
 
 variable "seldon_namespace" {
   default = "seldon"
-}
-
-# variable "oauth2_providers" {
-#   //  Configure multiple Oauth2 providers.
-#   //  example:
-#   //  [{
-#   //    provider = github
-#   //    client_id = change_me
-#   //    client_secret = change_me
-#   //    tenant = null
-#   //  }]
-#   //  If you're using GitHub, Google or Facebook, tenant won't be needed, so please set
-#   //  it as null or an empty string. It is required for AzureAd
-#   type = list(object({
-#     provider      = string
-#     client_id     = string
-#     client_secret = string
-#     tenant        = string
-#   }))
-#   description = "OAuth2 Providers credentials"
-# }
-
-variable "smtp_connection_uri" {
-  description = "SMTP Connection for Ory"
-  type        = string
-  default     = "smtp://"
-}
-
-variable "smtp_from_address" {
-  description = "Email address for outgoing mails from Ory"
-  type        = string
-  default     = ""
-}
-
-variable "enable_password_recovery" {
-  description = "Bool to set to enable password recovery using emails"
-  type        = bool
-  default     = false
-}
-
-variable "enable_verification" {
-  description = "Bool to set to enable account registration confirmation using emails"
-  type        = bool
-  default     = false
-}
-
-## Other K8S tools
-
-variable "install_metrics_server" {
-  default = true
-}
-
-variable "enable_registration_page" {
-  description = "Bool to set if registration page will or not be visible to users"
-  type        = bool
-  default     = true
-}
-
-variable "access_rules_path" {
-  type    = string
-  default = null
 }

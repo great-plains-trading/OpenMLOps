@@ -19,5 +19,10 @@ resource "helm_release" "dask-jupyterhub" {
     singleuser_storage_capacity = var.singleuser_storage_capacity
     singleuser_storage_mount_path = var.singleuser_storage_mount_path
     hub_allow_named_servers = var.hub_allow_named_servers
+    admin_user = var.admin_user
+    github_client_id = var.github_client_id
+    github_client_secret = var.github_client_secret
+    github_callback_url = var.github_callback_url
+    github_organization = var.github_organization
   })]
 }
